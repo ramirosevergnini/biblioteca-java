@@ -27,9 +27,6 @@ public class Biblioteca {
             System.out.println(livro.getTitulo());
         }
         System.out.println("---------------------");
-    }   
-    public void quantosLivros(){
-        this.livros.size();
     }    
     public void buscarLivroPorTitulo(String tituloDesejado){       
         System.out.println("Buscando se o livro esta disponivel para emprestimo...");
