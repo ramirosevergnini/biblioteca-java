@@ -25,7 +25,6 @@ public class BibliotecaProjeto {
         teclado.close();
 
         // Busca as informações na biblioteca
-        b1.buscarLivroPorTitulo(titulo);
         
         Livro livroProcurado1 = b1.buscarLivroPorTitulo2(titulo);
         
