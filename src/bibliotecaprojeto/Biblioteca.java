@@ -5,7 +5,8 @@ public class Biblioteca {
     
     private ArrayList<Livro> livros;
     private ArrayList<Usuario> usuarios;
-    ArrayList<Emprestimo> emprestimos;
+    private ArrayList<Emprestimo> emprestimos;
+    
     
     public Biblioteca() {
         this.livros = new ArrayList<Livro>();
@@ -18,12 +19,15 @@ public class Biblioteca {
      public void inserirUsuario(Usuario usuario){
          this.usuarios.add(usuario);
     }
+    public void inserirEmprestimo(Emprestimo emprestimo){
+        this.emprestimos.add(emprestimo);
+    }
     public void mostrarLivros(){
         for (Livro livro : livros){
             System.out.println(livro.getTitulo());
         }
     }     
-    public Livro buscarLivroPorTitulo2(String tituloDesejado){       
+    public Livro buscarLivroPorTitulo(String tituloDesejado){       
         for(var livro : livros){
             if(livro.getTitulo().equals(tituloDesejado)){
                 return livro;
@@ -44,14 +48,21 @@ public class Biblioteca {
             System.out.println(usuario.getNome());           
         }
     }
-    public void realizarEmprestimo(Usuario usuario, Livro livro){
-        
- 
-        
+//  retornar um emprestimo se conseguiu fazer senao retornar null
+    public Emprestimo realizarEmprestimo(Biblioteca b1, Usuario usuario, Livro livro){
+        if(livro != null && usuario != null){
+            Emprestimo e1 = new Emprestimo(usuario, livro);
+            b1.emprestimos.add(e1);
+            return e1;
+        }
+        return null;
     }
     public void removerLivro(Livro livro) {
-    if (livros.contains(livro)) {
-        livros.remove(livro);
+        if (livros.contains(livro)) {
+            livros.remove(livro);
+        }
     }
+    public void sair(){
+        
     }
 }
