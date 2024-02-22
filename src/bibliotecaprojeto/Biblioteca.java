@@ -48,7 +48,6 @@ public class Biblioteca {
             System.out.println(usuario.getNome());           
         }
     }
-//  retornar um emprestimo se conseguiu fazer senao retornar null
     public Emprestimo realizarEmprestimo(Biblioteca b1, Usuario usuario, Livro livro){
         if(livro != null && usuario != null){
             Emprestimo e1 = new Emprestimo(usuario, livro);
@@ -57,12 +56,40 @@ public class Biblioteca {
         }
         return null;
     }
-    public void removerLivro(Livro livro) {
+    public Emprestimo verificarLivroEmprestado(String titulo){
+        for(Emprestimo emprestimo:emprestimos){
+            if(emprestimo.getLivro().getTitulo().equals(titulo)){
+                return emprestimo;
+            }
+        }
+        return null;
+    }
+    public String removerLivro(String livro) {
         if (livros.contains(livro)) {
             livros.remove(livro);
+            return livro;
         }
+        return null;
     }
-    public void sair(){
+    public Livro confirmarLivro(String livroTitulo){
+        for (Livro livro:livros){
+            if(livro.getTitulo().equals(livroTitulo)){
+                return livro;
+            }
+        }
+        return null;
+    }
+    public Usuario confirmarCadastro(String tecladoUsuario){
+        for (var usuario : usuarios){
+            if(usuario.getNome().equals(tecladoUsuario)){
+                return usuario;
+            } 
+        }
+        return null;
+    }
+    public String colocarSenha(String admSenha){
+        String senha = "723109";
+        return senha;
         
     }
 }
