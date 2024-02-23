@@ -1,5 +1,4 @@
 package bibliotecaprojeto;
-
 import java.util.ArrayList;
 public class Biblioteca {
     
@@ -13,11 +12,13 @@ public class Biblioteca {
         this.usuarios = new ArrayList<Usuario>();
         this.emprestimos = new ArrayList<Emprestimo>();
     }
-    public void inserirLivro(Livro livro){
-        this.livros.add(livro);
+    public void inserirLivro(String nomeDoLivro){
+        Livro novoLivro = new Livro(nomeDoLivro);
+        this.livros.add(novoLivro);
     }   
-     public void inserirUsuario(Usuario usuario){
-         this.usuarios.add(usuario);
+     public void inserirUsuario(String nomeDoUsuario){
+         Usuario novoUsuario = new Usuario(nomeDoUsuario);
+         this.usuarios.add(novoUsuario);
     }
     public void inserirEmprestimo(Emprestimo emprestimo){
         this.emprestimos.add(emprestimo);
@@ -48,9 +49,9 @@ public class Biblioteca {
             System.out.println(usuario.getNome());           
         }
     }
-    public Emprestimo realizarEmprestimo(Biblioteca b1, Usuario usuario, Livro livro){
-        if(livro != null && usuario != null){
-            Emprestimo e1 = new Emprestimo(usuario, livro);
+    public Emprestimo realizarEmprestimo(Biblioteca b1, Usuario nomeDoUsuario, Livro livro){
+        if(livro != null && nomeDoUsuario != null){
+            Emprestimo e1 = new Emprestimo(nomeDoUsuario, livro);
             b1.emprestimos.add(e1);
             return e1;
         }
@@ -64,14 +65,23 @@ public class Biblioteca {
         }
         return null;
     }
-    public String removerLivro(String livro) {
-        if (livros.contains(livro)) {
-            livros.remove(livro);
-            return livro;
+    public void removerLivro(String livroTitulo) {
+    Livro livroRemover = null;
+    for (Livro livro : livros) {
+        if (livroTitulo.equals(livro.getTitulo())) {
+            livroRemover = livro;
+            break;
         }
-        return null;
     }
-    public Livro confirmarLivro(String livroTitulo){
+
+    if (livroRemover != null) {
+        livros.remove(livroRemover);
+        System.out.println("Livro removido: " + livroRemover.getTitulo());
+    } else {
+        System.out.println("Livro não encontrado na biblioteca.");
+    }
+}
+    public Livro buscarLivros(String livroTitulo){
         for (Livro livro:livros){
             if(livro.getTitulo().equals(livroTitulo)){
                 return livro;
@@ -92,4 +102,10 @@ public class Biblioteca {
         return senha;
         
     }
+    public void inserirUsuario1(Usuario usuario){
+         this.usuarios.add(usuario);
+    }
+   /* public Usuario quantosUsuarios(Usuario usuario){
+        return usuarios.size();
+   
 }
