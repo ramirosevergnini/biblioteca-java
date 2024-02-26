@@ -5,6 +5,7 @@ public class Biblioteca {
     private ArrayList<Livro> livros;
     private ArrayList<Usuario> usuarios;
     private ArrayList<Emprestimo> emprestimos;
+    private ArrayList<Administrador> administradores;
     
     
     public Biblioteca() {
@@ -16,10 +17,14 @@ public class Biblioteca {
         Livro novoLivro = new Livro(nomeDoLivro);
         this.livros.add(novoLivro);
     }   
-     public void inserirUsuario(String nomeDoUsuario){
-         Usuario novoUsuario = new Usuario(nomeDoUsuario);
-         this.usuarios.add(novoUsuario);
+    public void registrarUsuario(String nomeDoUsuario){
+        Usuario novoUsuario = new Usuario(nomeDoUsuario);
+        this.usuarios.add(novoUsuario);
     }
+    public void registrarSenha(String senhaDoUsuario){
+        Usuario novaSenha = new Usuario(senhaDoUsuario);
+        this.usuarios.add(novaSenha);
+    } 
     public void inserirEmprestimo(Emprestimo emprestimo){
         this.emprestimos.add(emprestimo);
     }
@@ -97,6 +102,14 @@ public class Biblioteca {
         }
         return null;
     }
+    public Usuario confirmarSenha(String tecladoSenha){
+        for (var usuario : usuarios){
+            if(usuario.getSenhaUsuario().equals(tecladoSenha)){
+                return usuario;
+            }
+        }
+        return null;
+    }
     public String colocarSenha(String admSenha){
         String senha = "723109";
         return senha;
@@ -105,7 +118,8 @@ public class Biblioteca {
     public void inserirUsuario1(Usuario usuario){
          this.usuarios.add(usuario);
     }
-   /* public Usuario quantosUsuarios(Usuario usuario){
-        return usuarios.size();
-   
-}
+    public void login(){
+        
+    }
+        
+    }

@@ -4,30 +4,82 @@ public class BibliotecaProjeto {
     public static void main(String[] args) {
         Biblioteca b1 = new Biblioteca();
         boolean sair = false;
-      
-       /* Livro l1 = new Livro("Manuscrito Original");
-        Livro l2 = new Livro("Do Mil ao Milhao");
-        b1.inserirLivro(l1);
-        b1.inserirLivro(l2);
-        */
         
-       Usuario u1 = new Usuario("Ramiro");
-       b1.inserirUsuario1(u1);
+        Scanner tecladoAdmOuUsuario = new Scanner(System.in);
+        System.out.println("""
+                           1) Usuario
+                           2) Administrador""");
+        String AdmOuUsuario = tecladoAdmOuUsuario.nextLine();
         
-                //        ler condição while
-        /*Scanner whileCond = new Scanner(System.in);
-        String c;
-        System.out.println("Você deseja entrar em nossa biblioteca? (sim) ou (nao)");
-        c = whileCond.nextLine();
-                */
+        switch(AdmOuUsuario){
+            
+            case"1":
+                
+                Scanner tecladoRegisterOuLogin = new Scanner(System.in);
+                System.out.println("""
+                                   1) LOGIN
+                                   2) REGISTER""");
+                String RegisterOuLogin = tecladoRegisterOuLogin.nextLine();
         
-       /* System.out.println("Seja muito bem vindo a biblioteca Severgnini Cultura!");
-        int quantosUsuarios = b1.quantosUsuarios();
-        if (quantosUsuarios == 0) {
-            System.out.println("Você precisa realizar o cadastro de alguma pessoa para entrar na biblioteca!");
-        } else {
-            System.out.println("A biblioteca já possui cadastros!");
-        }*/
+                switch(RegisterOuLogin){
+                    
+                case"1":
+                
+                    System.out.println("Opcao Login selecionada!");
+                    Scanner tecladoUsuarioLogin = new Scanner(System.in);
+                    System.out.println("Escreva o seu nome:");
+                    String nomeUsuarioLogin = tecladoUsuarioLogin.nextLine();
+
+                    Usuario usuarioConfirmado = b1.confirmarCadastro(nomeUsuarioLogin);
+                   
+                    if (usuarioConfirmado != null){
+                        System.out.println("Usuario esta cadastrado");
+                    }else{
+                        System.out.println("Usuario nao esta cadastrado");
+                    }
+                    
+                    System.out.println("Coloque a senha do seu usuário:");
+                    String senhaUsuario = tecladoUsuarioLogin.nextLine();
+                    
+                    Usuario senhaConfirmado = b1.confirmarSenha(senhaUsuario);
+                    
+                    if (senhaConfirmado != null){
+                        System.out.println("Senha correta");
+                    }else{
+                        System.out.println("Senha incorreta");
+                    }
+                    
+                    break;
+                    
+                case"2":
+                    System.out.println("Opcao Register selecionada!");
+                    Scanner tecladoUsuarioRegister = new Scanner(System.in);
+                    System.out.println("Escreva o seu nome:");
+                    String nomeUsuarioRegistro = tecladoUsuarioRegister.nextLine();
+                    
+                    b1.registrarUsuario(nomeUsuarioRegistro);
+                    
+                    System.out.println("Escreva sua senha:");
+                    String senhaUsuarioRegistro = tecladoUsuarioRegister.nextLine();
+                    
+                    break;
+                
+                }
+                
+            case"2":
+                
+                System.out.println("Faça o login como administrador!");
+                Scanner nomeAdmLogin = new Scanner(System.in);                    
+                    System.out.println("Coloque seu nome:");
+                    String lerSenha2 = admSenha2.nextLine();
+                    String senhaAdm2 = b1.colocarSenha(lerSenha2);
+                    if(!lerSenha2.equals(senhaAdm2)){
+                        System.out.println("Senha incorreta!");
+                    }
+                    else{
+                        System.out.println("Senha correta!");
+                
+        }
         loopPrincipal:
         while (!sair){
             Scanner lerAlternativa = new Scanner(System.in);
