@@ -17,13 +17,9 @@ public class Biblioteca {
         Livro novoLivro = new Livro(nomeDoLivro);
         this.livros.add(novoLivro);
     }   
-    public void registrarUsuario(String nomeDoUsuario){
-        Usuario novoUsuario = new Usuario(nomeDoUsuario);
+    public void registrarUsuario(String nomeDoUsuario, String senha){
+        Usuario novoUsuario = new Usuario(nomeDoUsuario, senha);
         this.usuarios.add(novoUsuario);
-    }
-    public void registrarSenha(String senhaDoUsuario){
-        Usuario novaSenha = new Usuario(senhaDoUsuario);
-        this.usuarios.add(novaSenha);
     } 
     public void inserirEmprestimo(Emprestimo emprestimo){
         this.emprestimos.add(emprestimo);
@@ -54,9 +50,9 @@ public class Biblioteca {
             System.out.println(usuario.getNome());           
         }
     }
-    public Emprestimo realizarEmprestimo(Biblioteca b1, Usuario nomeDoUsuario, Livro livro){
-        if(livro != null && nomeDoUsuario != null){
-            Emprestimo e1 = new Emprestimo(nomeDoUsuario, livro);
+    public Emprestimo realizarEmprestimo(Biblioteca b1, Usuario usuario, Livro livro){
+        if(livro != null && usuario != null){
+            Emprestimo e1 = new Emprestimo(usuario, livro);
             b1.emprestimos.add(e1);
             return e1;
         }
@@ -94,19 +90,11 @@ public class Biblioteca {
         }
         return null;
     }
-    public Usuario confirmarCadastro(String tecladoUsuario){
+    public Usuario login(String nomeUsuario, String senha){
         for (var usuario : usuarios){
-            if(usuario.getNome().equals(tecladoUsuario)){
+            if(usuario.getNome().equals(nomeUsuario) && usuario.getSenhaUsuario().equals(senha)){
                 return usuario;
             } 
-        }
-        return null;
-    }
-    public Usuario confirmarSenha(String tecladoSenha){
-        for (var usuario : usuarios){
-            if(usuario.getSenhaUsuario().equals(tecladoSenha)){
-                return usuario;
-            }
         }
         return null;
     }
@@ -117,6 +105,9 @@ public class Biblioteca {
     }
     public void inserirUsuario1(Usuario usuario){
          this.usuarios.add(usuario);
+    }
+    public void inserirLivro1(Livro livro){
+        this.livros.add(livro);
     }
     public void login(){
         

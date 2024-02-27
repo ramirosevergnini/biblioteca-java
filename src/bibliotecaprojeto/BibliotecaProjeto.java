@@ -4,6 +4,16 @@ public class BibliotecaProjeto {
     public static void main(String[] args) {
         Biblioteca b1 = new Biblioteca();
         boolean sair = false;
+        boolean reiniciarCadastro = false;
+        boole
+               
+        Livro l1 = new Livro("Minecraft");
+        b1.inserirLivro1(l1);
+        Usuario u1 = new Usuario("Ramiro", "1234");
+        b1.inserirUsuario1(u1);        
+        
+        Livro novoLivro;
+        Usuario usuarioLogado;
         
         Scanner tecladoAdmOuUsuario = new Scanner(System.in);
         System.out.println("""
@@ -12,9 +22,8 @@ public class BibliotecaProjeto {
         String AdmOuUsuario = tecladoAdmOuUsuario.nextLine();
         
         switch(AdmOuUsuario){
-            
             case"1":
-                
+                while (!reiniciarCadastro){ 
                 Scanner tecladoRegisterOuLogin = new Scanner(System.in);
                 System.out.println("""
                                    1) LOGIN
@@ -29,26 +38,24 @@ public class BibliotecaProjeto {
                     Scanner tecladoUsuarioLogin = new Scanner(System.in);
                     System.out.println("Escreva o seu nome:");
                     String nomeUsuarioLogin = tecladoUsuarioLogin.nextLine();
-
-                    Usuario usuarioConfirmado = b1.confirmarCadastro(nomeUsuarioLogin);
-                   
-                    if (usuarioConfirmado != null){
-                        System.out.println("Usuario esta cadastrado");
-                    }else{
-                        System.out.println("Usuario nao esta cadastrado");
-                    }
-                    
-                    System.out.println("Coloque a senha do seu usuário:");
+                    System.out.println("Escreva a sua senha:");
                     String senhaUsuario = tecladoUsuarioLogin.nextLine();
-                    
-                    Usuario senhaConfirmado = b1.confirmarSenha(senhaUsuario);
-                    
-                    if (senhaConfirmado != null){
-                        System.out.println("Senha correta");
+
+                    usuarioLogado = b1.login(nomeUsuarioLogin, senhaUsuario);
+                   
+                    if (usuarioLogado != null){
+                        System.out.println("Seja bem-vindo(a) "+nomeUsuarioLogin);
+                        reiniciarCadastro = true;
                     }else{
-                        System.out.println("Senha incorreta");
+                        System.out.println("""
+                                           Nao foi possivel realizar o login.
+                                           1) Tentar novamente""");
+                        String cadastroNovamente = tecladoUsuarioLogin.nextLine();
+                        if("1".equals(cadastroNovamente)){
+                            reiniciarCadastro = false;
+                        }
                     }
-                    
+
                     break;
                     
                 case"2":
@@ -56,14 +63,13 @@ public class BibliotecaProjeto {
                     Scanner tecladoUsuarioRegister = new Scanner(System.in);
                     System.out.println("Escreva o seu nome:");
                     String nomeUsuarioRegistro = tecladoUsuarioRegister.nextLine();
-                    
-                    b1.registrarUsuario(nomeUsuarioRegistro);
-                    
                     System.out.println("Escreva sua senha:");
                     String senhaUsuarioRegistro = tecladoUsuarioRegister.nextLine();
                     
+                    b1.registrarUsuario(nomeUsuarioRegistro, senhaUsuarioRegistro);
+                    
                     break;
-                
+                }
                 }
                 
             case"2":
@@ -79,7 +85,9 @@ public class BibliotecaProjeto {
                     else{
                         System.out.println("Senha correta!");
                 
+                    }
         }
+
         loopPrincipal:
         while (!sair){
             Scanner lerAlternativa = new Scanner(System.in);
@@ -117,24 +125,6 @@ public class BibliotecaProjeto {
                     System.out.println("---------------------");
                     break;
                     
-                case "3":
-                    
-                    System.out.println("Opcao Confirmar cadastro selecionada!");
-                    Scanner tecladoUsuario = new Scanner(System.in);
-                    System.out.println("Escreva o nome do usuario para ver se ele esta cadastrado: ");
-                    String nomeUsuario = tecladoUsuario.nextLine();
-                    
-                    Usuario usuarioConfirmado = b1.confirmarCadastro(nomeUsuario);
-                    
-                    
-                    if (usuarioConfirmado != null){
-                        System.out.println("Usuario esta cadastrado");
-                    }else{
-                        System.out.println("Usuario nao esta cadastrado");
-                    }
-                    //tecladoUsuario.close();
-                    break;
-                    
                 case "4":
                     
                     System.out.println("Opcao Selecionar seu livro selecionada!");
@@ -156,11 +146,11 @@ public class BibliotecaProjeto {
                     break;
                 case "5":
                     System.out.println("Opcao realizar emprestimo selecionada!");
-                    Emprestimo e1 = b1.realizarEmprestimo(b1, novoUsuario, novoLivro);
+                    Emprestimo e1 = b1.realizarEmprestimo(b1, u1, l1);
                     if(e1 == null) {
                         System.out.println("Não foi possível realizar o emprestimo!");
                     }else{
-                        System.out.println("Emprestimo realizado com sucesso");
+                        System.out.println("Emprestimo do livro: "+l1+" para o(a) "+u1+" realizado com sucesso");
                     }
                     break;      
                 case "6":
@@ -194,7 +184,6 @@ public class BibliotecaProjeto {
                         Scanner cadastroUsuario = new Scanner (System.in);
                         System.out.println("Qual o nome do usuario");
                         String nomeDoUsuario = cadastroUsuario.nextLine();
-                        b1.inserirUsuario(nomeDoUsuario);
                     }
                     
                 case "8":
@@ -215,9 +204,9 @@ public class BibliotecaProjeto {
                     }
                     
                 case "9":
-                    /*System.out.println("Saindo da biblioteca...");
+                    System.out.println("Saindo da biblioteca...");
                     sair = true;
-*/
+
         
                 default:  
                     System.out.println("Você selecionou um número errado.");
