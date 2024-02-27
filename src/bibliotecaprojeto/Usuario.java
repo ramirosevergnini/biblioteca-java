@@ -1,7 +1,7 @@
 package bibliotecaprojeto;
 public class Usuario {
-    private String nome;
-    private String senhaUsuario;
+    protected String nome;
+    protected String senhaUsuario;
     
     public Usuario(String nome, String senhaUsuario) {
         this.nome = nome;

@@ -80,8 +80,8 @@ public class Biblioteca {
         System.out.println("Livro removido: " + livroRemover.getTitulo());
     } else {
         System.out.println("Livro não encontrado na biblioteca.");
+        }
     }
-}
     public Livro buscarLivros(String livroTitulo){
         for (Livro livro:livros){
             if(livro.getTitulo().equals(livroTitulo)){
@@ -103,14 +103,8 @@ public class Biblioteca {
         return senha;
         
     }
-    public void inserirUsuario1(Usuario usuario){
-         this.usuarios.add(usuario);
-    }
-    public void inserirLivro1(Livro livro){
-        this.livros.add(livro);
-    }
     public void login(){
         
     }
         
-    }
+}
