@@ -1,15 +1,86 @@
 package bibliotecaprojeto;
 import java.util.Scanner;
 public class BibliotecaProjeto {
+    public static void mostrarMenuNaoLogado(String opcao){
+        System.out.println("""
+                           Escolha alguma das opcoes abaixo:
+                           1) Fazer Login.
+                           2) Mostrar livros disponiveis.
+                           3) Sair.
+                   ass BibliotecaProjeto {
+                               public static void mostrarMenuNaoLogado(String opcao){
+                                   System.out.println(\"""
+                                                      Escolha alguma das opcoes abaixo:
+                                                      1) Fazer Login.
+                                                      2) Mostrar livros disponiveis.
+                                                  """);
+        switch(opcao){
+            case"1":
+                
+                break;
+            case "2":
+                break;
+            case "3":
+                break;
+            default:    
+                System.out.println("Opcao invalida");
+        }
+    }
+    
+    public static void mostrarMenuLogado(String opcao){
+        switch(opcao){
+            case"1":
+                break;
+            case "2":
+                break;
+            case "3":
+                break;
+            default:    
+                System.out.println("Opcao invalida");
+        }
+    
+    }
     public static void main(String[] args) {
-        Biblioteca b1 = new Biblioteca();
+        
+        boolean usuarioLogado = false;
+        boolean sair = false;
+        System.out.println("Seja bem-vindo a biblioteca!");
+        do{        
+            
+            Scanner teclado = new Scanner(System.in);
+            
+            if (usuarioLogado == true) {
+                String opcao = teclado.nextLine();
+                mostrarMenuLogado(opcao);
+            } else {
+                
+                mostrarMenuNaoLogado(opcao);
+            }
+        }while(sair != true);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+/*        Biblioteca b1 = new Biblioteca();
         boolean sair = false;
         boolean reiniciarCadastro = false;            
         boolean sairAdm = false;
         /*Livro l1 = new Livro("Minecraft");
         b1.inserirLivro1(l1);
         Usuario u1 = new Usuario("Ramiro", "1234");
-        b1.inserirUsuario1(u1);   */     
+        b1.inserirUsuario1(u1);        
         
         Livro novoLivro;
         Usuario usuarioLogado;
@@ -211,7 +282,7 @@ public class BibliotecaProjeto {
         System.out.println("""
                            Muito obrigado por por visitar a bilioteca Severgnini Cultura!
                            Volte Sempre!!!""");
-    }
+    */}
 }
 
                            
