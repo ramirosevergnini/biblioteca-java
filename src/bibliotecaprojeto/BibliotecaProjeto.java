@@ -25,6 +25,7 @@ public class BibliotecaProjeto {
 
     public static void main(String[] args) {
         Biblioteca b1 = new Biblioteca();
+        System.out.println();
         
         Livro l1 = new Livro("Minecraft");
         b1.inserirLivro1(l1);
@@ -84,8 +85,20 @@ public class BibliotecaProjeto {
                      
                     else {
                         System.out.println("Opcção devolver livro selecionada.");
+                        b1.mostrarLivrosEmprestados();
+                        Scanner lerLivroDevolver = new Scanner(System.in);
+                        System.out.println("Qual livro você deseja remover?");
+                        String lerLivroDevolver1 = lerLivroDevolver.nextLine();
+                        b1.devolverLivro(u1, l3);
+                        if(b1.devolverLivro(u1, l3)){
+                            System.out.println("Livro devolvido com sucesso!");
+                        }else{
+                            System.out.println("Não temos livros emprestados");
+                        }
                     }
+                        
                     break;
+                    
                 case "2":
                     if (!estadoUsuario) {
                         System.out.println("Opção registrar-se selecionada.");

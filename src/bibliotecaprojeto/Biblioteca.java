@@ -58,12 +58,25 @@ public class Biblioteca {
         }
         return null;
     }
-    public Livro devolverLivro(Biblioteca b1, Usuario usuario, Livro livro){
-        if(emprestimos!=null){
-            emprestimos.remove(livro);
-            return livro;
+    public Emprestimo buscarEmprestimo(Usuario usuario, Livro livro) {
+        for (Emprestimo emprestimo : emprestimos) {
+            if (emprestimo.getUsuario().equals(usuario) && emprestimo.getLivro().equals(livro)) {
+                return emprestimo;
+            }
         }
         return null;
+    }
+
+    public boolean devolverLivro(Usuario usuario, Livro livro) {
+        Emprestimo emprestimo = buscarEmprestimo(usuario, livro);
+        if (emprestimo != null) {
+            emprestimos.remove(emprestimo);
+            System.out.println("Livro devolvido: " + livro.getTitulo() + " pelo usuário: " + usuario.getNome());
+            return true;
+        } else {
+            System.out.println("Este livro não está emprestado para este usuário.");
+            return false;
+        }
     }
     public void removerLivro(String livroTitulo) {
     Livro livroRemover = null;
@@ -103,7 +116,16 @@ public class Biblioteca {
     public void inserirLivro1(Livro livro){
         this.livros.add(livro);
     }
-    public void tornarLivroEmprestado(){
-        
-    }
+    public void mostrarLivrosEmprestados() {
+        if (emprestimos.isEmpty()) {
+            System.out.println("Não há livros emprestados no momento.");
+        } else {
+            System.out.println("Livros emprestados:");
+            for (Emprestimo emprestimo : emprestimos) {
+                Livro livroEmprestado = emprestimo.getLivro();
+                Usuario usuarioEmprestimo = emprestimo.getUsuario();
+                System.out.println("Livro: " + livroEmprestado.getTitulo() + " | Empréstimo para: " + usuarioEmprestimo.getNome());
+            }
+        }
+}
 }
