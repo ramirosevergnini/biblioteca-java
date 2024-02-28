@@ -8,17 +8,17 @@ public class BibliotecaProjeto {
                            Escolha alguma das opcoes abaixo:
                            1) Fazer Login.
                            2) Registrar-se.
-                           2) Mostrar livros disponiveis.
-                           3) Sair.
+                           3) Mostrar livros disponiveis.
+                           4) Sair.
                            """);
     }
 
     public static void mostrarMenuLogado() {
         System.out.println("""
                            Escolha alguma das opcoes abaixo:
-                           1) Mostrar livros disponiveis.
+                           1) Devolver livro.
                            2) Realizar emprestimo.
-                           3) Devolver livro.
+                           3) Mostrar livros disponiveis.
                            4) Sair.
                            """);
     }
@@ -70,30 +70,56 @@ public class BibliotecaProjeto {
                         String senhaUsuario = tecladoUsuarioLogin.nextLine();
 
                         usuarioLogado = b1.login(nomeUsuarioLogin, senhaUsuario);
-                        estadoUsuario = true;
-                    } else {
-                        System.out.println("Opção de empréstimo selecionada.");
+                        
+                        if (usuarioLogado != null){
+                            System.out.println("Seja muito bem-vindo "+nomeUsuarioLogin);
+                            estadoUsuario = true;
+                        }else{
+                            System.out.println("""
+                                Nao foi possivel realizar o login.
+                                           ENTRANDO EM CADASTRO NOVAMENTE...""");
+                        }
+                    }
+            
+                     
+                    else {
+                        System.out.println("Opcção devolver livro selecionada.");
                     }
                     break;
                 case "2":
                     if (!estadoUsuario) {
                         System.out.println("Opção registrar-se selecionada.");
+                        System.out.println("Opcao Register selecionada!");
+                        Scanner tecladoUsuarioRegister = new Scanner(System.in);
+                        System.out.println("Escreva o seu nome:");
+                        String nomeUsuarioRegistro = tecladoUsuarioRegister.nextLine();
+                        System.out.println("Escreva sua senha:");
+                        String senhaUsuarioRegistro = tecladoUsuarioRegister.nextLine();
+                        b1.registrarUsuario(nomeUsuarioRegistro, senhaUsuarioRegistro);
+                        System.out.println("Usuario e senha registrados com sucesso!");
+                        break;
+                    } else {
+                        System.out.println("Opcao realizar emprestimo selecionada!");
+                        Emprestimo e1 = b1.realizarEmprestimo(b1, u1, l2);
+                        if(e1 == null) {
+                        System.out.println("Não foi possível realizar o emprestimo!");
+                        }else{
+                        System.out.println("Emprestimo do livro: "+l2+" para o(a) "+u1+" realizado com sucesso");
+                        }
                         
-                        break;
-                    } else {
-                        System.out.println("");
+                        break;   
+
                     }
-                    break;
                 case "3":
-                     if (!estadoUsuario) {
-                        System.out.println("---------------------");
-                        System.out.println("LIVROS DA BIBLIOTECA:");
-                        b1.mostrarLivros();
-                        System.out.println("---------------------");
-                        break;
-                    } else {
-                         System.out.println("");
-                    }
+                    
+                    System.out.println("---------------------");
+                    System.out.println("LIVROS DA BIBLIOTECA:");
+                    b1.mostrarLivros();
+                    System.out.println("---------------------");
+                    break;
+                case "4":
+                    sair = true;
+                    break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }

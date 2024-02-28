@@ -58,11 +58,10 @@ public class Biblioteca {
         }
         return null;
     }
-    public Emprestimo verificarLivroEmprestado(String titulo){
-        for(Emprestimo emprestimo:emprestimos){
-            if(emprestimo.getLivro().getTitulo().equals(titulo)){
-                return emprestimo;
-            }
+    public Livro devolverLivro(Biblioteca b1, Usuario usuario, Livro livro){
+        if(emprestimos!=null){
+            emprestimos.remove(livro);
+            return livro;
         }
         return null;
     }
@@ -98,18 +97,13 @@ public class Biblioteca {
         }
         return null;
     }
-    public String colocarSenha(String admSenha){
-        String senha = "723109";
-        return senha;
-        
-    }
-    public void login(){
-        
-    }
     public void inserirUsuario1(Usuario usuario){
         this.usuarios.add(usuario);
     }
     public void inserirLivro1(Livro livro){
         this.livros.add(livro);
+    }
+    public void tornarLivroEmprestado(){
+        
     }
 }
