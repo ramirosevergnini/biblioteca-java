@@ -106,5 +106,10 @@ public class Biblioteca {
     public void login(){
         
     }
-        
+    public void inserirUsuario1(Usuario usuario){
+        this.usuarios.add(usuario);
+    }
+    public void inserirLivro1(Livro livro){
+        this.livros.add(livro);
+    }
 }

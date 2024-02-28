@@ -1,69 +1,108 @@
 package bibliotecaprojeto;
 import java.util.Scanner;
+
 public class BibliotecaProjeto {
-    public static void mostrarMenuNaoLogado(String opcao){
+    
+    public static void mostrarMenuNaoLogado() {
         System.out.println("""
                            Escolha alguma das opcoes abaixo:
                            1) Fazer Login.
+                           2) Registrar-se.
                            2) Mostrar livros disponiveis.
                            3) Sair.
-                   ass BibliotecaProjeto {
-                               public static void mostrarMenuNaoLogado(String opcao){
-                                   System.out.println(\"""
-                                                      Escolha alguma das opcoes abaixo:
-                                                      1) Fazer Login.
-                                                      2) Mostrar livros disponiveis.
-                                                  """);
-        switch(opcao){
-            case"1":
-                
-                break;
-            case "2":
-                break;
-            case "3":
-                break;
-            default:    
-                System.out.println("Opcao invalida");
-        }
+                           """);
     }
-    
-    public static void mostrarMenuLogado(String opcao){
-        switch(opcao){
-            case"1":
-                break;
-            case "2":
-                break;
-            case "3":
-                break;
-            default:    
-                System.out.println("Opcao invalida");
-        }
-    
+
+    public static void mostrarMenuLogado() {
+        System.out.println("""
+                           Escolha alguma das opcoes abaixo:
+                           1) Mostrar livros disponiveis.
+                           2) Realizar emprestimo.
+                           3) Devolver livro.
+                           4) Sair.
+                           """);
     }
+
     public static void main(String[] args) {
+        Biblioteca b1 = new Biblioteca();
         
-        boolean usuarioLogado = false;
+        Livro l1 = new Livro("Minecraft");
+        b1.inserirLivro1(l1);
+        Livro l2 = new Livro("Raio");
+        b1.inserirLivro1(l2);
+        Livro l3 = new Livro("Futebol");
+        b1.inserirLivro1(l3);
+        
+        Usuario u1 = new Usuario("Ramiro", "123");
+        b1.inserirUsuario1(u1);       
+        Usuario u2 = new Usuario("Felipe", "1234");
+        b1.inserirUsuario1(u2);       
+        Usuario u3 = new Usuario("Vitor", "12345");
+        b1.inserirUsuario1(u3);
+        
+        Usuario usuarioLogado;
+        boolean estadoUsuario = false;
         boolean sair = false;
+        Scanner teclado = new Scanner(System.in);
+
         System.out.println("Seja bem-vindo a biblioteca!");
-        do{        
-            
-            Scanner teclado = new Scanner(System.in);
-            
-            if (usuarioLogado == true) {
-                String opcao = teclado.nextLine();
-                mostrarMenuLogado(opcao);
+
+        do {
+            if (!estadoUsuario) {
+                mostrarMenuNaoLogado();
             } else {
-                
-                mostrarMenuNaoLogado(opcao);
+                mostrarMenuLogado();
             }
-        }while(sair != true);
-        
-        
-        
-        
-        
-        
-        
+
+            System.out.print("Digite a sua opcao: ");
+            String opcao = teclado.nextLine();
+
+            switch (opcao) {
+                case "1":
+                    if (!estadoUsuario) {
+                        System.out.println("Digite seu nome de usuário e senha para fazer login.");
+                        
+                        System.out.println("Opcao Login selecionada!");
+                        Scanner tecladoUsuarioLogin = new Scanner(System.in);
+                        System.out.println("Escreva o seu nome:");
+                        String nomeUsuarioLogin = tecladoUsuarioLogin.nextLine();
+                        System.out.println("Escreva a sua senha:");
+                        String senhaUsuario = tecladoUsuarioLogin.nextLine();
+
+                        usuarioLogado = b1.login(nomeUsuarioLogin, senhaUsuario);
+                        estadoUsuario = true;
+                    } else {
+                        System.out.println("Opção de empréstimo selecionada.");
+                    }
+                    break;
+                case "2":
+                    if (!estadoUsuario) {
+                        System.out.println("Opção registrar-se selecionada.");
+                        
+                        break;
+                    } else {
+                        System.out.println("");
+                    }
+                    break;
+                case "3":
+                     if (!estadoUsuario) {
+                        System.out.println("---------------------");
+                        System.out.println("LIVROS DA BIBLIOTECA:");
+                        b1.mostrarLivros();
+                        System.out.println("---------------------");
+                        break;
+                    } else {
+                         System.out.println("");
+                    }
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        } while (!sair);
+
+        System.out.println("Obrigado por usar a biblioteca!");
+        teclado.close();
+    }
+}
         
         
         
