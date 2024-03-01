@@ -85,27 +85,15 @@ public class BibliotecaProjeto {
                      
                     else {
                         System.out.println("Opcção devolver livro selecionada.");
-                        System.out.println("Livros emprestados:");
-                        for (Emprestimo emprestimo : emprestimos) {
-                            Livro livroEmprestado = emprestimo.getLivro();
-                            Usuario usuarioEmprestimo = emprestimo.getUsuario();
-                            System.out.println("Livro: " + livroEmprestado.getTitulo() + " | Empréstimo para: " + usuarioEmprestimo.getNome());
-                        }                       
-                        Scanner lerLivroDevolver = new Scanner(System.in);
-                        System.out.println("Qual livro você deseja remover?");
-                        String livroDevolver = lerLivroDevolver.nextLine();
-                        Livro livroParaDevolver = buscarLivros();
-                        if(livroParaDevolver != null){
-                           if(b1.devolverLivro(u1, livroParaDevolver)){
-                               System.out.println("Livro devolvido com sucesso!");
-                            }else{
-                               System.out.println("Erro ao devolver o livro.");
-                                    }
-                        }else{
-                                   System.out.println("Livro não está na lista de empréstimos");
-                            }
+                        Emprestimo devolver1 = b1.devolverLivro(u1, l2);
+                        if (devolver1 != null){
+                            System.out.println("Livro devolvido: " + l2.getTitulo() + " pelo usuário: " + u1.getNome());
+                        }
+                        else{
+                            System.out.println("Este livro não está emprestado para este usuário.");
+                        }
                     }
-                        
+                          
                     break;
                     
                 case "2":

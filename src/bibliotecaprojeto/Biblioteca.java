@@ -54,6 +54,7 @@ public class Biblioteca {
         if(livro != null && usuario != null){
             Emprestimo e1 = new Emprestimo(usuario, livro);
             b1.emprestimos.add(e1);
+            livros.remove(livro);
             return e1;
         }
         return null;
@@ -71,10 +72,9 @@ public class Biblioteca {
         Emprestimo emprestimo = buscarEmprestimo(usuario, livro);
         if (emprestimo != null) {
             emprestimos.remove(emprestimo);
-            System.out.println("Livro devolvido: " + livro.getTitulo() + " pelo usuário: " + usuario.getNome());
+            livros.add(livro);
             return emprestimo;
         } else {
-            System.out.println("Este livro não está emprestado para este usuário.");
             return null;
         }
     }
