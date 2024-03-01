@@ -14,11 +14,17 @@ public class Livro {
         return titulo;
     }
     
+    
     /*public String getAutor() {
         return autor;
     }
 
     
     */
+
+    @Override
+    public String toString() {
+        return "Livro{" + "titulo=" + titulo + '}';
+    }
     
 }

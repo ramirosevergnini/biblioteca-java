@@ -85,16 +85,25 @@ public class BibliotecaProjeto {
                      
                     else {
                         System.out.println("Opcção devolver livro selecionada.");
-                        b1.mostrarLivrosEmprestados();
+                        System.out.println("Livros emprestados:");
+                        for (Emprestimo emprestimo : emprestimos) {
+                            Livro livroEmprestado = emprestimo.getLivro();
+                            Usuario usuarioEmprestimo = emprestimo.getUsuario();
+                            System.out.println("Livro: " + livroEmprestado.getTitulo() + " | Empréstimo para: " + usuarioEmprestimo.getNome());
+                        }                       
                         Scanner lerLivroDevolver = new Scanner(System.in);
                         System.out.println("Qual livro você deseja remover?");
-                        String lerLivroDevolver1 = lerLivroDevolver.nextLine();
-                        b1.devolverLivro(u1, l3);
-                        if(b1.devolverLivro(u1, l3)){
-                            System.out.println("Livro devolvido com sucesso!");
+                        String livroDevolver = lerLivroDevolver.nextLine();
+                        Livro livroParaDevolver = buscarLivros();
+                        if(livroParaDevolver != null){
+                           if(b1.devolverLivro(u1, livroParaDevolver)){
+                               System.out.println("Livro devolvido com sucesso!");
+                            }else{
+                               System.out.println("Erro ao devolver o livro.");
+                                    }
                         }else{
-                            System.out.println("Não temos livros emprestados");
-                        }
+                                   System.out.println("Livro não está na lista de empréstimos");
+                            }
                     }
                         
                     break;
@@ -330,6 +339,13 @@ public class BibliotecaProjeto {
                                     Scanner livroRemover = new Scanner (System.in);
                                     System.out.println("Qual livro você deseja retirar?");
                                     String livroEscolhido = livroRemover.nextLine();
+                                    if (livroRemover != null) {
+                                            livros.remove(livroRemover);
+                                            System.out.println("Livro removido: " + livroRemover.getTitulo());
+                                        } else {
+                                            System.out.println("Livro não encontrado na biblioteca.");
+                                            }
+                                        }
                                     b1.removerLivro(livroEscolhido);
                                     break;
                                     
