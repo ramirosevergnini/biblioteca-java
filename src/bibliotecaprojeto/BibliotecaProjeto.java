@@ -54,18 +54,27 @@ public class BibliotecaProjeto {
             b1.inserirLivro(nomeDoLivro);
             System.out.println("Livro inserido com sucesso!");
         }else{
-            
+            System.out.println("Livro não encontrado.");
         }
         casosAdm(sair, b1);      
     }  
     public static void caso5Adm(Biblioteca b1, Boolean sair){   
-        Emprestimo devolver1 = b1.devolverLivro(usuarioLogado, l2);
-        if (devolver1 != null){
-            System.out.println("Livro devolvido: " + l2.getTitulo() + " pelo usuário: " + usuarioLogado.getNome());
-        }
-        else{
-            System.out.println("Este livro não está emprestado para este usuário.");
-        }
+        System.out.println("Opcção devolver livro selecionada.");
+        Scanner livroParaDevolver= new Scanner(System.in);
+        System.out.println("Qual livro você deseja devolver?");
+        String LivroEscolhidoDevolver = livroParaDevolver.nextLine();
+        Livro livroParaDevolver2 = b1.buscarLivroPorTitulo(LivroEscolhidoDevolver);
+        if (livroParaDevolver2 != null) {                            
+            Emprestimo devolver1 = b1.devolverLivro(usuarioLogado, livroParaDevolver2);                            
+            if (devolver1 != null) {                           
+                System.out.println("Livro devolvido: " + livroParaDevolver2.getTitulo() +
+                                                        " pelo usuário: " + usuarioLogado.getNome());                           
+            } else {                          
+                System.out.println("Este livro não está emprestado para este usuário.");                         
+            }                      
+        } else {                       
+            System.out.println("Livro não encontrado na biblioteca.");                      
+            }                  
         casosAdm(sair, b1);
     }  
     public static void caso6Adm(Boolean sair){
@@ -127,14 +136,14 @@ public class BibliotecaProjeto {
         Livro l3 = new Livro("Futebol");
         b1.inserirLivro1(l3);
         
-        
-        Usuario usuarioLogado;
-        Livro novoLivro;
         boolean estadoUsuario = false;
         boolean sair = false;
         Scanner teclado = new Scanner(System.in);
 
         System.out.println("Seja bem-vindo a biblioteca!");
+        
+        Usuario usuarioLogado = null;
+        Livro novoLivro = null;
 
         do {
             if (!estadoUsuario) {
@@ -179,16 +188,21 @@ public class BibliotecaProjeto {
                         Scanner livroParaDevolver= new Scanner(System.in);
                         System.out.println("Qual livro você deseja devolver?");
                         String LivroEscolhidoDevolver = livroParaDevolver.nextLine();
-                        Emprestimo devolver1 = b1.devolverLivro(usuarioLogado, l1);
-                        if (devolver1 != null){
-                            System.out.println("Livro devolvido: " + l2.getTitulo() + " pelo usuário: " + usuarioLogado.getNome());
-                        }
-                        else{
-                            System.out.println("Este livro não está emprestado para este usuário.");
+                        Livro livroParaDevolver2 = b1.buscarLivroPorTitulo(LivroEscolhidoDevolver);
+                        if (livroParaDevolver2 != null) {
+                            Emprestimo devolver1 = b1.devolverLivro(usuarioLogado, livroParaDevolver2);
+                            if (devolver1 != null) {
+                                System.out.println("Livro devolvido: " + livroParaDevolver2.getTitulo() +
+                                        " pelo usuário: " + usuarioLogado.getNome());
+                            } else {
+                                System.out.println("Este livro não está emprestado para este usuário.");
+                            }
+                        } else {
+                            System.out.println("Livro não encontrado na biblioteca.");
                         }
                     }
                           
-                    break;
+                    break; 
                     
                 case "2":
                     if (!estadoUsuario) {
