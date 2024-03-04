@@ -12,13 +12,13 @@ public class BibliotecaProjeto {
                             (5) Devolver livro emprestado.
                             (6) Sair""");
     }    
-    public static void caso1Adm(){
+    public static void caso1Adm(Biblioteca b1){
         System.out.println("Opcao Mostrar usuarios selecionada!");
         System.out.println("USUARIOS CADASTRADOS:");
         b1.mostrarUsuarios();
         System.out.println("---------------------");
     }
-    public static void caso2Adm(){
+    public static void caso2Adm(Biblioteca b1){
         System.out.println("Opcao realizar emprestimo selecionada!");
         Emprestimo e1 = b1.realizarEmprestimo(b1, usuarioLogado, novoLivro);
         if(e1 == null) {
@@ -27,7 +27,7 @@ public class BibliotecaProjeto {
             System.out.println("Emprestimo do livro: "+novoLivro+" para o(a) "+usuarioLogado+" realizado com sucesso");
         }
     }  
-    public static void caso3Adm(){
+    public static void caso3Adm(Biblioteca b1){
         System.out.println("Opcao realizar remocao de livro selecionada!");
         Scanner livroRemover = new Scanner (System.in);
         System.out.println("Qual livro você deseja retirar?");
@@ -40,48 +40,50 @@ public class BibliotecaProjeto {
         }
         b1.removerLivro(livroEscolhido);
     }  
-    public static void caso4Adm(){
+    public static void caso4Adm(Biblioteca b1){
         System.out.println("Opcao Cadastrar livro selecionada!");
         System.out.println("Senha correta!");
         Scanner cadastroLivro = new Scanner (System.in);
-        System.out.println("Qual o nome do livro");
+        System.out.println("Qual o nome do livro?");
         String nomeDoLivro  = cadastroLivro.nextLine();
         b1.inserirLivro(nomeDoLivro);
+        novoLivro = nomeDoLivro;
     }  
-    public static void caso5Adm(){   
-        Emprestimo devolver1 = b1.devolverLivro(u1, l2);
+    public static void caso5Adm(Biblioteca b1){   
+        Emprestimo devolver1 = b1.devolverLivro(usuarioLogado, l2);
         if (devolver1 != null){
-            System.out.println("Livro devolvido: " + l2.getTitulo() + " pelo usuário: " + u1.getNome());
+            System.out.println("Livro devolvido: " + l2.getTitulo() + " pelo usuário: " + usuarioLogado.getNome());
         }
         else{
             System.out.println("Este livro não está emprestado para este usuário.");
         }
 
     }  
-    public static void caso6Adm(){
+    public static void caso6Adm(Boolean sair){
+        System.out.println("Opção sair selecionada");
         sair = true;
     }  
-    public static void casosAdm(){
+    public static void casosAdm(Boolean sair, Biblioteca b1){
         Scanner tecladoAdm = new Scanner(System.in);
-        mostrarMenuAdministrador();
-        String opcaoAdm = tecladoAdm.nextLine();
-        if (opcaoAdm.equals("1")) {
-            caso1Adm();
-        } else if (opcaoAdm.equals("2")) {
-            caso2Adm();
-        } else if (opcaoAdm.equals("3")) {                      
-            caso3Adm();
-        } else if (opcaoAdm.equals("4")) {
-            caso4Adm();
-        } else if (opcaoAdm.equals("5")) {
-            caso5Adm();
-        } else if (opcaoAdm.equals("6")) {
-            caso6Adm();
-        } else {               
-            System.out.println("Opção incorreta!");
-            casosAdm();
-        }
-
+        do{
+            mostrarMenuAdministrador();
+            String opcaoAdm = tecladoAdm.nextLine();
+            if (opcaoAdm.equals("1")) {
+                caso1Adm(b1);
+            } else if (opcaoAdm.equals("2")) {
+                caso2Adm(b1);
+            } else if (opcaoAdm.equals("3")) {                      
+                caso3Adm(b1);
+            } else if (opcaoAdm.equals("4")) {
+                caso4Adm(b1);
+            } else if (opcaoAdm.equals("5")) {
+                caso5Adm(b1);
+            } else if (opcaoAdm.equals("6")) {
+                caso6Adm(sair);
+            } else {               
+                System.out.println("Opção incorreta!");
+            }
+        }while(!sair);    
         
         tecladoAdm.close();
     }    
@@ -118,6 +120,7 @@ public class BibliotecaProjeto {
         
         
         Usuario usuarioLogado;
+        Livro novoLivro;
         boolean estadoUsuario = false;
         boolean sair = false;
         Scanner teclado = new Scanner(System.in);
@@ -152,7 +155,7 @@ public class BibliotecaProjeto {
                             System.out.println("Seja muito bem-vindo "+nomeUsuarioLogin);
                             estadoUsuario = true;
                         }else if(usuarioLogado == administrador){
-                            casosAdm();
+                            casosAdm(sair, b1);
                             
                         }else{
                             System.out.println("""
@@ -164,7 +167,10 @@ public class BibliotecaProjeto {
                      
                     else {
                         System.out.println("Opcção devolver livro selecionada.");
-                        Emprestimo devolver1 = b1.devolverLivro(usuarioLogado, l2);
+                        Scanner livroParaDevolver= new Scanner(System.in);
+                        System.out.println("Qual livro você deseja devolver?");
+                        String LivroEscolhidoDevolver = livroParaDevolver.nextLine();
+                        Emprestimo devolver1 = b1.devolverLivro(usuarioLogado, l1);
                         if (devolver1 != null){
                             System.out.println("Livro devolvido: " + l2.getTitulo() + " pelo usuário: " + usuarioLogado.getNome());
                         }
