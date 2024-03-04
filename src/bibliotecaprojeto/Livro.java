@@ -1,9 +1,6 @@
 package bibliotecaprojeto;
-import java.util.Scanner;
 public class Livro {
     private String titulo;
-    private boolean disponivel = true;
-    //private String autor;
 
     public Livro(String titulo){//, //String autor) {
         this.titulo = titulo;
@@ -14,11 +11,17 @@ public class Livro {
         return titulo;
     }
     
+    
     /*public String getAutor() {
         return autor;
     }
 
     
     */
+
+    @Override
+    public String toString() {
+        return "Livro{" + "titulo=" + titulo + '}';
+    }
     
 }

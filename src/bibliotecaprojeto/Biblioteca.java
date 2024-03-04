@@ -1,11 +1,11 @@
 package bibliotecaprojeto;
-
 import java.util.ArrayList;
 public class Biblioteca {
     
     private ArrayList<Livro> livros;
     private ArrayList<Usuario> usuarios;
     private ArrayList<Emprestimo> emprestimos;
+    private ArrayList<Administrador> administradores;
     
     
     public Biblioteca() {
@@ -13,12 +13,14 @@ public class Biblioteca {
         this.usuarios = new ArrayList<Usuario>();
         this.emprestimos = new ArrayList<Emprestimo>();
     }
-    public void inserirLivro(Livro livro){
-        this.livros.add(livro);
+    public void inserirLivro(String nomeDoLivro){
+        Livro novoLivro = new Livro(nomeDoLivro);
+        this.livros.add(novoLivro);
     }   
-     public void inserirUsuario(Usuario usuario){
-         this.usuarios.add(usuario);
-    }
+    public void registrarUsuario(String nomeDoUsuario, String senha){
+        Usuario novoUsuario = new Usuario(nomeDoUsuario, senha);
+        this.usuarios.add(novoUsuario);
+    } 
     public void inserirEmprestimo(Emprestimo emprestimo){
         this.emprestimos.add(emprestimo);
     }
@@ -48,21 +50,64 @@ public class Biblioteca {
             System.out.println(usuario.getNome());           
         }
     }
-//  retornar um emprestimo se conseguiu fazer senao retornar null
     public Emprestimo realizarEmprestimo(Biblioteca b1, Usuario usuario, Livro livro){
         if(livro != null && usuario != null){
             Emprestimo e1 = new Emprestimo(usuario, livro);
             b1.emprestimos.add(e1);
+            livros.remove(livro);
             return e1;
         }
         return null;
     }
-    public void removerLivro(Livro livro) {
-        if (livros.contains(livro)) {
-            livros.remove(livro);
+    public Emprestimo buscarEmprestimo(Usuario usuario, Livro livro) {
+        for (Emprestimo emprestimo : emprestimos) {
+            if (emprestimo.getUsuario().equals(usuario) && emprestimo.getLivro().equals(livro)) {
+                return emprestimo;
+            }
+        }
+        return null;
+    }
+
+    public Emprestimo devolverLivro(Usuario usuario, Livro livro) {
+        Emprestimo emprestimo = buscarEmprestimo(usuario, livro);
+        if (emprestimo != null) {
+            emprestimos.remove(emprestimo);
+            livros.add(livro);
+            return emprestimo;
+        } else {
+            return null;
         }
     }
-    public void sair(){
-        
+    public void removerLivro(String livroTitulo) {
+    Livro livroRemover = null;
+    for (Livro livro : livros) {
+        if (livroTitulo.equals(livro.getTitulo())) {
+            livroRemover = livro;
+            break;
+        }
     }
+    }
+    public Livro buscarLivros(String livroTitulo){
+        for (Livro livro:livros){
+            if(livro.getTitulo().equals(livroTitulo)){
+                return livro;
+            }
+        }
+        return null;
+    }
+    public Usuario login(String nomeUsuario, String senha){
+        for (var usuario : usuarios){
+            if(usuario.getNome().equals(nomeUsuario) && usuario.getSenhaUsuario().equals(senha)){
+                return usuario;
+            } 
+        }
+        return null;
+    }
+    public void inserirUsuario1(Usuario usuario){
+        this.usuarios.add(usuario);
+    }
+    public void inserirLivro1(Livro livro){
+        this.livros.add(livro);
+    
+}
 }
