@@ -34,9 +34,10 @@ public class BibliotecaProjeto {
         Scanner livroRemover = new Scanner (System.in);
         System.out.println("Qual livro você deseja retirar?");
         String livroEscolhido = livroRemover.nextLine();
-        if (livroRemover != null) {
-            livros.remove(livroRemover);
-            System.out.println("Livro removido: " + livroRemover.getTitulo());
+        Livro livroEscolhido1 = b1.buscarLivroPorTitulo(livroEscolhido);
+        if (livroEscolhido1!=null) {
+            b1.removerLivro(livroEscolhido);
+            System.out.println("Livro removido!");
         } else {
             System.out.println("Livro não encontrado na biblioteca.");
         }
