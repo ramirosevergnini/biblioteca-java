@@ -12,14 +12,14 @@ public class BibliotecaProjeto {
                             (5) Devolver livro emprestado.
                             (6) Sair""");
     } 
-    public static void caso1Adm(Biblioteca b1, Boolean sair){
+    public static void caso1Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado, Livro novoLivro){
         System.out.println("Opcao Mostrar usuarios selecionada!");
         System.out.println("USUARIOS CADASTRADOS:");
         b1.mostrarUsuarios();
         System.out.println("---------------------");
-        casosAdm(sair, b1);
+        casosAdm(sair, b1, usuarioLogado, novoLivro);   
     }
-    public static void caso2Adm(Biblioteca b1, Boolean sair){
+    public static void caso2Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado, Livro novoLivro){
         System.out.println("Opcao realizar emprestimo selecionada!");
         Emprestimo e1 = b1.realizarEmprestimo(b1, usuarioLogado, novoLivro);
         if(e1 == null) {
@@ -27,9 +27,9 @@ public class BibliotecaProjeto {
         }else{
             System.out.println("Emprestimo do livro: "+novoLivro+" para o(a) "+usuarioLogado+" realizado com sucesso");
         }
-        casosAdm(sair, b1);
+        casosAdm(sair, b1, usuarioLogado, novoLivro);   
     }  
-    public static void caso3Adm(Biblioteca b1, Boolean sair){
+    public static void caso3Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado, Livro novoLivro){
         System.out.println("Opcao realizar remocao de livro selecionada!");
         Scanner livroRemover = new Scanner (System.in);
         System.out.println("Qual livro você deseja retirar?");
@@ -41,9 +41,9 @@ public class BibliotecaProjeto {
             System.out.println("Livro não encontrado na biblioteca.");
         }
         b1.removerLivro(livroEscolhido);
-        casosAdm(sair, b1);
+        casosAdm(sair, b1, usuarioLogado, novoLivro);   
     }  
-    public static void caso4Adm(Biblioteca b1, Boolean sair){
+    public static void caso4Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado, Livro novoLivro){
         System.out.println("Opcao Cadastrar livro selecionada!");
         System.out.println("Senha correta!");
         Scanner cadastroLivro = new Scanner (System.in);
@@ -56,9 +56,9 @@ public class BibliotecaProjeto {
         }else{
             System.out.println("Livro não encontrado.");
         }
-        casosAdm(sair, b1);      
+        casosAdm(sair, b1, usuarioLogado, novoLivro);      
     }  
-    public static void caso5Adm(Biblioteca b1, Boolean sair){   
+    public static void caso5Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado, Livro novoLivro){   
         System.out.println("Opcção devolver livro selecionada.");
         Scanner livroParaDevolver= new Scanner(System.in);
         System.out.println("Qual livro você deseja devolver?");
@@ -75,27 +75,27 @@ public class BibliotecaProjeto {
         } else {                       
             System.out.println("Livro não encontrado na biblioteca.");                      
             }                  
-        casosAdm(sair, b1);
+        casosAdm(sair, b1, usuarioLogado, novoLivro);   
     }  
     public static void caso6Adm(Boolean sair){
         System.out.println("Opção sair selecionada");
         sair = true;
     }  
-    public static void casosAdm(Boolean sair, Biblioteca b1){
+    public static void casosAdm(Boolean sair, Biblioteca b1, Usuario usuarioLogado, Livro novoLivro){
         Scanner tecladoAdm = new Scanner(System.in);
         do{
             mostrarMenuAdministrador();
             String opcaoAdm = tecladoAdm.nextLine();
             if (opcaoAdm.equals("1")) {
-                caso1Adm(b1, sair);
+                caso1Adm(b1, sair, usuarioLogado, novoLivro);
             } else if (opcaoAdm.equals("2")) {
-                caso2Adm(b1, sair);
+                caso2Adm(b1, sair, usuarioLogado, novoLivro);
             } else if (opcaoAdm.equals("3")) {                      
-                caso3Adm(b1, sair);
+                caso3Adm(b1, sair, usuarioLogado, novoLivro);
             } else if (opcaoAdm.equals("4")) {
-                caso4Adm(b1, sair);
+                caso4Adm(b1, sair, usuarioLogado, novoLivro);
             } else if (opcaoAdm.equals("5")) {
-                caso5Adm(b1, sair);
+                caso5Adm(b1, sair, usuarioLogado, novoLivro);
             } else if (opcaoAdm.equals("6")) {
                 caso6Adm(sair);
             } else {               
@@ -173,7 +173,7 @@ public class BibliotecaProjeto {
                             System.out.println("Seja muito bem-vindo "+nomeUsuarioLogin);
                             estadoUsuario = true;
                         }else if(usuarioLogado == administrador){
-                            casosAdm(sair, b1);
+                            casosAdm(sair, b1, usuarioLogado, novoLivro);
                             
                         }else{
                             System.out.println("""
