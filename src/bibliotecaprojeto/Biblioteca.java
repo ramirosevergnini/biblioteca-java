@@ -17,8 +17,11 @@ public class Biblioteca {
         Livro novoLivro = new Livro(nomeDoLivro);
         this.livros.add(novoLivro);
     }   
-    public void registrarUsuario(String nomeDoUsuario, String senha){
-        Usuario novoUsuario = new Usuario(nomeDoUsuario, senha);
+    public void registrarUsuario(Usuario usuario){
+        this.usuarios.add(usuario);
+    }
+    public void registrarUsuario(String usuario, String senha){
+        Usuario novoUsuario = new Usuario(usuario, senha);
         this.usuarios.add(novoUsuario);
     } 
     public void inserirEmprestimo(Emprestimo emprestimo){

@@ -21,11 +21,17 @@ public class BibliotecaProjeto {
     }
     public static void caso2Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado, Livro novoLivro){
         System.out.println("Opcao realizar emprestimo selecionada!");
-        Emprestimo e1 = b1.realizarEmprestimo(b1, usuarioLogado, novoLivro);
-        if(e1 == null) {
-            System.out.println("Não foi possível realizar o emprestimo!");
-        }else{
-            System.out.println("Emprestimo do livro: "+novoLivro+" para o(a) "+usuarioLogado+" realizado com sucesso");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Livros disponíveis:");
+        b1.mostrarLivros();
+        System.out.println("Qual livro deseja retirar?"); 
+        String livroEmprestimo = scanner.nextLine();  
+        Livro livroEmprestimo1 = b1.buscarLivroPorTitulo(livroEmprestimo);
+        if (livroEmprestimo1 != null) {
+            b1.realizarEmprestimo(b1, usuarioLogado, novoLivro);
+            System.out.println("Empréstimo de "+livroEmprestimo+" para "+usuarioLogado+" realizada coms sucesso!");
+        } else {
+            System.out.println("Não foi possível realizar o empréstimo.");
         }
         casosAdm(sair, b1, usuarioLogado, novoLivro);   
     }  
@@ -46,17 +52,12 @@ public class BibliotecaProjeto {
     }  
     public static void caso4Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado, Livro novoLivro){
         System.out.println("Opcao Cadastrar livro selecionada!");
-        System.out.println("Senha correta!");
         Scanner cadastroLivro = new Scanner (System.in);
         System.out.println("Qual o nome do livro?");
         String nomeDoLivro  = cadastroLivro.nextLine();
-        Livro livroEscolhido = b1.buscarLivroPorTitulo(nomeDoLivro);
-        if (livroEscolhido != null){
-            b1.inserirLivro(nomeDoLivro);
-            System.out.println("Livro inserido com sucesso!");
-        }else{
-            System.out.println("Livro não encontrado.");
-        }
+        b1.inserirLivro(nomeDoLivro);
+        System.out.println("Livro inserido com sucesso!");
+        
         casosAdm(sair, b1, usuarioLogado, novoLivro);      
     }  
     public static void caso5Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado, Livro novoLivro){   
@@ -130,7 +131,8 @@ public class BibliotecaProjeto {
         Biblioteca b1 = new Biblioteca();
         System.out.println();
         
-        Administrador adm = new Administrador("Ramiro", "123456");
+        Administrador adm = new Administrador("Ramiro", "123");
+        b1.registrarUsuario(adm);
         
         boolean estadoUsuario = false;
         boolean sair = false;
@@ -166,12 +168,11 @@ public class BibliotecaProjeto {
 
                         usuarioLogado = b1.login(nomeUsuarioLogin, senhaUsuario);
                         
-                        if (usuarioLogado != null){
+                        if (usuarioLogado instanceof Administrador){
+                            casosAdm(sair, b1, usuarioLogado, novoLivro);
+                        }else if(usuarioLogado != null){
                             System.out.println("Seja muito bem-vindo "+nomeUsuarioLogin);
                             estadoUsuario = true;
-                        }else if(usuarioLogado == adm){
-                            casosAdm(sair, b1, usuarioLogado, novoLivro);
-                            
                         }else{
                             System.out.println("""
                                 Nao foi possivel realizar o login.
@@ -215,16 +216,23 @@ public class BibliotecaProjeto {
                         break;
                     } else {
                         System.out.println("Opcao realizar emprestimo selecionada!");
-                        Emprestimo e1 = b1.realizarEmprestimo(b1, usuarioLogado, novoLivro);
-                        if(e1 == null) {
-                        System.out.println("Não foi possível realizar o emprestimo!");
-                        }else{
-                        System.out.println("Emprestimo do livro: "+novoLivro+" para o(a) "+usuarioLogado+" realizado com sucesso");
+                        Scanner scanner = new Scanner(System.in);
+                        System.out.println("Livros disponíveis:");
+                        b1.mostrarLivros();
+                        System.out.println("Qual livro deseja retirar?"); 
+                        String livroEmprestimo = scanner.nextLine();  
+                        Livro livroEmprestimo1 = b1.buscarLivroPorTitulo(livroEmprestimo);
+                        if (livroEmprestimo1 != null) {
+                            b1.realizarEmprestimo(b1, usuarioLogado, novoLivro);
+                            System.out.println("Empréstimo de "+livroEmprestimo+" para "+usuarioLogado+" realizada coms sucesso!");
+                        } else {
+                            System.out.println("Não foi possível realizar o empréstimo.");
                         }
-                        
+                    }
+   
                         break;   
 
-                    }
+                    
                 case "3":
                     
                     System.out.println("---------------------");
