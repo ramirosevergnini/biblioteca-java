@@ -12,30 +12,30 @@ public class BibliotecaProjeto {
                             (5) Devolver livro emprestado.
                             (6) Sair""");
     } 
-    public static void caso1Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado, Livro novoLivro){
+    public static void caso1Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado){
         System.out.println("Opcao Mostrar usuarios selecionada!");
         System.out.println("USUARIOS CADASTRADOS:");
         b1.mostrarUsuarios();
         System.out.println("---------------------");
-        casosAdm(sair, b1, usuarioLogado, novoLivro);   
+        casosAdm(sair, b1, usuarioLogado);   
     }
-    public static void caso2Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado, Livro novoLivro){
+    public static void caso2Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado){
         System.out.println("Opcao realizar emprestimo selecionada!");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Livros disponíveis:");
         b1.mostrarLivros();
         System.out.println("Qual livro deseja retirar?"); 
-        String livroEmprestimo = scanner.nextLine();  
-        Livro livroEmprestimo1 = b1.buscarLivroPorTitulo(livroEmprestimo);
-        if (livroEmprestimo1 != null) {
-            b1.realizarEmprestimo(b1, usuarioLogado, novoLivro);
-            System.out.println("Empréstimo de "+livroEmprestimo+" para "+usuarioLogado+" realizada coms sucesso!");
+        String tituloLivro = scanner.nextLine();  
+        Livro livroProcurado = b1.buscarLivroPorTitulo(tituloLivro);
+        if (livroProcurado != null) {
+            b1.realizarEmprestimo(b1, usuarioLogado, livroProcurado);
+            System.out.println("Empréstimo de "+tituloLivro+" para "+usuarioLogado+" realizada com sucesso!");
         } else {
             System.out.println("Não foi possível realizar o empréstimo.");
         }
-        casosAdm(sair, b1, usuarioLogado, novoLivro);   
+        casosAdm(sair, b1, usuarioLogado);   
     }  
-    public static void caso3Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado, Livro novoLivro){
+    public static void caso3Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado){
         System.out.println("Opcao realizar remocao de livro selecionada!");
         Scanner livroRemover = new Scanner (System.in);
         System.out.println("Qual livro você deseja retirar?");
@@ -48,9 +48,9 @@ public class BibliotecaProjeto {
             System.out.println("Livro não encontrado na biblioteca.");
         }
         b1.removerLivro(livroEscolhido);
-        casosAdm(sair, b1, usuarioLogado, novoLivro);   
+        casosAdm(sair, b1, usuarioLogado);   
     }  
-    public static void caso4Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado, Livro novoLivro){
+    public static void caso4Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado){
         System.out.println("Opcao Cadastrar livro selecionada!");
         Scanner cadastroLivro = new Scanner (System.in);
         System.out.println("Qual o nome do livro?");
@@ -58,18 +58,18 @@ public class BibliotecaProjeto {
         b1.inserirLivro(nomeDoLivro);
         System.out.println("Livro inserido com sucesso!");
         
-        casosAdm(sair, b1, usuarioLogado, novoLivro);      
+        casosAdm(sair, b1, usuarioLogado);      
     }  
-    public static void caso5Adm(Biblioteca b1, Boolean sair, Usuario usuarioLogado, Livro novoLivro){   
+    public static void caso5AdmDevolver(Biblioteca b1, Boolean sair, Usuario usuarioLogado){   
         System.out.println("Opcção devolver livro selecionada.");
-        Scanner livroParaDevolver= new Scanner(System.in);
+        Scanner teclado = new Scanner(System.in);
         System.out.println("Qual livro você deseja devolver?");
-        String LivroEscolhidoDevolver = livroParaDevolver.nextLine();
-        Livro livroParaDevolver2 = b1.buscarLivroPorTitulo(LivroEscolhidoDevolver);
-        if (livroParaDevolver2 != null) {                            
-            Emprestimo devolver1 = b1.devolverLivro(usuarioLogado, livroParaDevolver2);                            
+        String tituloLivroDevolvido = teclado.nextLine();
+        Livro livroDevolvido = b1.buscarLivroEmprestadoPorTitulo(tituloLivroDevolvido);
+        if (livroDevolvido != null) {                            
+            Emprestimo devolver1 = b1.devolverLivro(usuarioLogado, livroDevolvido);                            
             if (devolver1 != null) {                           
-                System.out.println("Livro devolvido: " + livroParaDevolver2.getTitulo() +
+                System.out.println("Livro devolvido: " + livroDevolvido.getTitulo() +
                                                         " pelo usuário: " + usuarioLogado.getNome());                           
             } else {                          
                 System.out.println("Este livro não está emprestado para este usuário.");                         
@@ -77,27 +77,27 @@ public class BibliotecaProjeto {
         } else {                       
             System.out.println("Livro não encontrado na biblioteca.");                      
             }                  
-        casosAdm(sair, b1, usuarioLogado, novoLivro);   
+        casosAdm(sair, b1, usuarioLogado);   
     }  
     public static void caso6Adm(Boolean sair){
         System.out.println("Opção sair selecionada");
         sair = true;
     }  
-    public static void casosAdm(Boolean sair, Biblioteca b1, Usuario usuarioLogado, Livro novoLivro){
+    public static void casosAdm(Boolean sair, Biblioteca b1, Usuario usuarioLogado){
         Scanner tecladoAdm = new Scanner(System.in);
         do{
             mostrarMenuAdministrador();
             String opcaoAdm = tecladoAdm.nextLine();
             if (opcaoAdm.equals("1")) {
-                caso1Adm(b1, sair, usuarioLogado, novoLivro);
+                caso1Adm(b1, sair, usuarioLogado);
             } else if (opcaoAdm.equals("2")) {
-                caso2Adm(b1, sair, usuarioLogado, novoLivro);
+                caso2Adm(b1, sair, usuarioLogado);
             } else if (opcaoAdm.equals("3")) {                      
-                caso3Adm(b1, sair, usuarioLogado, novoLivro);
+                caso3Adm(b1, sair, usuarioLogado);
             } else if (opcaoAdm.equals("4")) {
-                caso4Adm(b1, sair, usuarioLogado, novoLivro);
+                caso4Adm(b1, sair, usuarioLogado);
             } else if (opcaoAdm.equals("5")) {
-                caso5Adm(b1, sair, usuarioLogado, novoLivro);
+                caso5AdmDevolver(b1, sair, usuarioLogado);
             } else if (opcaoAdm.equals("6")) {
                 caso6Adm(sair);
             } else {               
@@ -169,7 +169,7 @@ public class BibliotecaProjeto {
                         usuarioLogado = b1.login(nomeUsuarioLogin, senhaUsuario);
                         
                         if (usuarioLogado instanceof Administrador){
-                            casosAdm(sair, b1, usuarioLogado, novoLivro);
+                            casosAdm(sair, b1, usuarioLogado);
                         }else if(usuarioLogado != null){
                             System.out.println("Seja muito bem-vindo "+nomeUsuarioLogin);
                             estadoUsuario = true;
@@ -220,11 +220,12 @@ public class BibliotecaProjeto {
                         System.out.println("Livros disponíveis:");
                         b1.mostrarLivros();
                         System.out.println("Qual livro deseja retirar?"); 
-                        String livroEmprestimo = scanner.nextLine();  
-                        Livro livroEmprestimo1 = b1.buscarLivroPorTitulo(livroEmprestimo);
-                        if (livroEmprestimo1 != null) {
-                            b1.realizarEmprestimo(b1, usuarioLogado, novoLivro);
-                            System.out.println("Empréstimo de "+livroEmprestimo+" para "+usuarioLogado+" realizada coms sucesso!");
+                        String tituloLivro = scanner.nextLine();  
+                        Livro livroProcurado = b1.buscarLivroPorTitulo(tituloLivro);
+                        if (livroProcurado != null) {
+                            b1.realizarEmprestimo(b1, usuarioLogado, livroProcurado);
+                            System.out.println("Empréstimo de "+tituloLivro+" para "+usuarioLogado+" realizada coms sucesso!");
+                            
                         } else {
                             System.out.println("Não foi possível realizar o empréstimo.");
                         }
