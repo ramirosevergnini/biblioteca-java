@@ -5,7 +5,6 @@ public class Biblioteca {
     private ArrayList<Livro> livros;
     private ArrayList<Usuario> usuarios;
     private ArrayList<Emprestimo> emprestimos;
-    private ArrayList<Administrador> administradores;
     
     
     public Biblioteca() {
@@ -17,8 +16,11 @@ public class Biblioteca {
         Livro novoLivro = new Livro(nomeDoLivro);
         this.livros.add(novoLivro);
     }   
-    public void registrarUsuario(String nomeDoUsuario, String senha){
-        Usuario novoUsuario = new Usuario(nomeDoUsuario, senha);
+    public void registrarUsuario(Usuario usuario){
+        this.usuarios.add(usuario);
+    }
+    public void registrarUsuario(String usuario, String senha){
+        Usuario novoUsuario = new Usuario(usuario, senha);
         this.usuarios.add(novoUsuario);
     } 
     public void inserirEmprestimo(Emprestimo emprestimo){
@@ -36,7 +38,16 @@ public class Biblioteca {
             }
         }
         return null;
-    }   
+    }
+    public Livro buscarLivroEmprestadoPorTitulo(String tituloDesejado){       
+        for(var emprestimo : emprestimos){
+            Livro livro = emprestimo.getLivro();
+            if(livro.getTitulo().equals(tituloDesejado)){
+                return livro;
+            }
+        }
+        return null;
+    }
     public Usuario buscarUsuario(Usuario nomeUsuario){
         for (var usuario : usuarios){
             if(usuario.getNome().equals(nomeUsuario)){
@@ -53,8 +64,8 @@ public class Biblioteca {
     public Emprestimo realizarEmprestimo(Biblioteca b1, Usuario usuario, Livro livro){
         if(livro != null && usuario != null){
             Emprestimo e1 = new Emprestimo(usuario, livro);
-            b1.emprestimos.add(e1);
             livros.remove(livro);
+            b1.emprestimos.add(e1);
             return e1;
         }
         return null;
@@ -107,7 +118,8 @@ public class Biblioteca {
         this.usuarios.add(usuario);
     }
     public void inserirLivro1(Livro livro){
-        this.livros.add(livro);
+        this.livros.add(livro);   
+
+    }
     
-}
 }
